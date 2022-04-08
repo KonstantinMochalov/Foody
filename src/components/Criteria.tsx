@@ -11,9 +11,51 @@ import {
 	Typography,
 } from '@mui/material'
 import ExpandMore from '@mui/icons-material/ExpandMore'
-import React from 'react'
+import React, { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { setParams } from '../features/searchParams'
 
 export const Criteria = () => {
+	const dispatch = useAppDispatch()
+	const searchParams = useAppSelector((state) => state.searchParams)
+	interface Restrictions {
+		dairy: Boolean,
+		egg: Boolean,
+		gluten: Boolean,
+		peanut: Boolean,
+		seafood: Boolean,
+		tree: Boolean,
+		soy: Boolean,
+	}
+
+	const handleMealChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		dispatch(setParams({ ...searchParams, meal: e.target.value }))
+	const handleDietChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		dispatch(setParams({ ...searchParams, diet: e.target.value }))
+	const [restrictions, setrestRictions] = useState<Restrictions>({
+		dairy: false,
+		egg: false,
+		gluten: false,
+		peanut: false,
+		seafood: false,
+		tree: false,
+		soy: false})
+	const handleRestrictionChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+		let k: keyof Restrictions
+		for ( k in restrictions){
+			if (k == e.target.value){
+				restrictions[k]=!restrictions[k]
+				//sets params as same, exept for restrictins, sets restriction as same, but adds k as a last element
+				if (restrictions[k]) dispatch(setParams({...searchParams, restrictions: [...searchParams.restrictions, k]}))
+				if (!restrictions[k]) {
+					//sets restrictions as a result of filter
+					dispatch(setParams({...searchParams, restrictions: searchParams.restrictions.filter(i=>i!==k)}))
+				}
+			}
+		}
+	}
+		
+
 	return (
 		<div>
 			<Accordion>
@@ -29,10 +71,11 @@ export const Criteria = () => {
 							// aria-labelledby='demo-controlled-radio-buttons-group'
 							// name='controlled-radio-buttons-group'
 							row
-							defaultValue='any'>
+							defaultValue='any'
+							onChange={handleMealChange}>
 							<FormControlLabel value='any' control={<Radio />} label='Any' />
-							<FormControlLabel value='main course' control={<Radio />} label='Main course' />
-							<FormControlLabel value='side dish' control={<Radio />} label='Side dish' />
+							<FormControlLabel value='main+course' control={<Radio />} label='Main course' />
+							<FormControlLabel value='side+dish' control={<Radio />} label='Side dish' />
 							<FormControlLabel value='dessert' control={<Radio />} label='Dessert' />
 							<FormControlLabel value='appetizer' control={<Radio />} label='Appetizer' />
 							<FormControlLabel value='salad' control={<Radio />} label='Salad' />
@@ -56,7 +99,8 @@ export const Criteria = () => {
 							// aria-labelledby='demo-controlled-radio-buttons-group'
 							// name='controlled-radio-buttons-group'
 							row
-							defaultValue='any'>
+							defaultValue='any'
+							onChange={handleDietChange}>
 							<FormControlLabel value='any' control={<Radio />} label='Any' />
 							<FormControlLabel value='ketogenic' control={<Radio />} label='Ketogenic' />
 							<FormControlLabel value='vegitarian' control={<Radio />} label='Vegetarian' />
@@ -75,30 +119,15 @@ export const Criteria = () => {
 					<Typography alignSelf='center'>Dietary restriction</Typography>
 				</AccordionSummary>
 				<AccordionDetails sx={{ flexGrow: 1 }}>
-					{/* <FormControl>
-						<RadioGroup
-							// aria-labelledby='demo-controlled-radio-buttons-group'
-							// name='controlled-radio-buttons-group'
-							row
-							defaultValue='none'>
-							<FormControlLabel value='none' control={<Radio />} label='None' />
-							<FormControlLabel value='dairy' control={<Radio />} label='Dairy' />
-							<FormControlLabel value='egg' control={<Radio />} label='Egg' />
-							<FormControlLabel value='gluten' control={<Radio />} label='Gluten' />
-							<FormControlLabel value='peanut' control={<Radio />} label='Peanut' />
-							<FormControlLabel value='seafood' control={<Radio />} label='Seafood' />
-							<FormControlLabel value='nut' control={<Radio />} label='Tree Nut' />
-							<FormControlLabel value='soy' control={<Radio />} label='Soy' />
-						</RadioGroup>
-					</FormControl> */}
-					<FormGroup>
-						<FormControlLabel control={<Checkbox />} label='Dairy' />
-						<FormControlLabel control={<Checkbox />} label='Egg' />
-						<FormControlLabel control={<Checkbox />} label='Gluten' />
-						<FormControlLabel control={<Checkbox />} label='Peanut' />
-						<FormControlLabel control={<Checkbox />} label='Seafood' />
-						<FormControlLabel control={<Checkbox />} label='Tree Nut' />
-						<FormControlLabel control={<Checkbox />} label='Soy' />
+					<FormGroup
+						onChange={handleRestrictionChange}>
+						<FormControlLabel control={<Checkbox value='dairy' />} label='Dairy' />
+						<FormControlLabel control={<Checkbox value='egg' />} label='Egg' />
+						<FormControlLabel control={<Checkbox value='gluten' />} label='Gluten' />
+						<FormControlLabel control={<Checkbox value='peanut' />} label='Peanut' />
+						<FormControlLabel control={<Checkbox value='seafood' />} label='Seafood' />
+						<FormControlLabel control={<Checkbox value='tree+nut' />} label='Tree Nut' />
+						<FormControlLabel control={<Checkbox value='soy' />} label='Soy' />
 					</FormGroup>
 				</AccordionDetails>
 			</Accordion>

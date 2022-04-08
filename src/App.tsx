@@ -1,22 +1,21 @@
 import React from 'react'
 import './App.css'
 import { TitleBar } from './components/TitleBar'
-import { Container } from '@mui/material'
-import { Slogan } from './components/Slogan'
+import { Button, Container, Divider } from '@mui/material'
 import { Selection } from './components/Selection'
 import { RecepieImgs } from './components/RecepieImgs'
 
 const App: React.FC = () => {
 	return (
-		<div>
+	<>
 			<TitleBar />
-			<Container sx={{ mt: 0.5 }}>
-				<Slogan />
+			<Container sx={{ mt: 0.5,  display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
 				<Selection />
+				<Button variant='contained' sx={{maxWidth:"10rem", mt: 2}}>Search</Button>
 				<RecepieImgs/>
 			</Container>
 			
-		</div>
+		</>
 	)
 }
 

@@ -1,5 +1,4 @@
-import { Avatar, Container, Typography, Grid, Button, Tooltip } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Avatar, Container, Typography, Grid, Button, Tooltip, Paper } from '@mui/material'
 import thaiFlag from '../img/Thailand.png'
 import vietnamFlag from '../img/Vietnam.png'
 import mexicoFlag from '../img/Mexico.png'
@@ -7,99 +6,129 @@ import japanFlag from '../img/Japan.png'
 import indiaFlag from '../img/India.jpg'
 import chinaFlag from '../img/China.png'
 import greeceFlag from '../img/Greece.png'
-
-import React from 'react'
+import React, { useState } from 'react'
 import { Criteria } from './Criteria'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { setParams } from '../features/searchParams'
 
 export const Selection = () => {
+	const [specialsOpen, setSpecialsOpen] = useState(false)
+	// const [country, setCountry] = useState("any")
+	const searchParams = useAppSelector((state) => state.searchParams)
+
+	const dispatch = useAppDispatch()
+
 	return (
-		<Container sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-			<Typography align='center' variant='h5' sx={{ mb: 1 }}>
-				Choose a country:
-			</Typography>
-			<Grid container direction='row' justifyContent='center' alignItems='center' spacing={5}>
+		<Container
+			sx={{
+				display: 'flex',
+				justifyContent: 'center',
+				flexDirection: 'column',
+				alignItems: 'center',
+				mt: 1,
+			}}>
+			<Paper sx={{ mb: 2,  }}>
+				<Typography align='center' variant='h5' sx={{m:0.5, ml:1, mr:1}}>
+					Choose a country:
+				</Typography>
+			</Paper>
+			<Grid container direction='row' justifyContent='center' alignItems='center' spacing={1}>
 				<Grid item>
 					<Tooltip title='Thailand'>
-						<Button sx={{ padding: 0 }}>
+						<Button
+							sx={{ padding: 0 }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'thai' }))}>
 							<Avatar
 								alt='Thai Flag'
 								src={thaiFlag}
-								sx={{ width: '3rem', height: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
 							/>
 						</Button>
 					</Tooltip>
 				</Grid>
 				<Grid item>
 					<Tooltip title='Vietnam'>
-						<Button sx={{ padding: 0 }}>
+						<Button
+							sx={{ padding: 0 }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'vietnamese' }))}>
 							<Avatar
 								alt='Vietnam Flag'
 								src={vietnamFlag}
-								sx={{ width: '3rem', height: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
 							/>
 						</Button>
 					</Tooltip>
 				</Grid>
 				<Grid item>
 					<Tooltip title='Mexico'>
-						<Button sx={{ padding: 0 }}>
+						<Button
+							sx={{ padding: 0 }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'mexican' }))}>
 							<Avatar
 								alt='Mexican Flag'
 								src={mexicoFlag}
-								sx={{ width: '3rem', height: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
 							/>
 						</Button>
 					</Tooltip>
 				</Grid>
 				<Grid item>
 					<Tooltip title='Japan'>
-						<Button sx={{ padding: 0 }}>
+						<Button
+							sx={{ padding: 0 }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'japanese' }))}>
 							<Avatar
 								alt='Japan Flag'
 								src={japanFlag}
-								sx={{ width: '3rem', height: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
 							/>
 						</Button>
 					</Tooltip>
 				</Grid>
 				<Grid item>
 					<Tooltip title='India'>
-						<Button sx={{ padding: 0 }}>
+						<Button
+							sx={{ padding: 0 }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'indian' }))}>
 							<Avatar
 								alt='Indian Flag'
 								src={indiaFlag}
-								sx={{ width: '3rem', height: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
 							/>
 						</Button>
 					</Tooltip>
 				</Grid>
 				<Grid item>
 					<Tooltip title='China'>
-						<Button sx={{ padding: 0 }}>
+						<Button
+							sx={{ padding: 0 }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'chinese' }))}>
 							<Avatar
 								alt='Chainese Flag'
 								src={chinaFlag}
-								sx={{ width: '3rem', height: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
 							/>
 						</Button>
 					</Tooltip>
 				</Grid>
 				<Grid item>
 					<Tooltip title='Greese'>
-						<Button sx={{ padding: 0 }}>
+						<Button
+							sx={{ padding: 0 }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'greek' }))}>
 							<Avatar
 								alt='Greek Flag'
 								src={greeceFlag}
-								sx={{ mwaxidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
 							/>
 						</Button>
 					</Tooltip>
 				</Grid>
 			</Grid>
-			<Button variant='text' sx={{ mt: 3 }}>
-				Any special requests?
+			<Button variant='text' sx={{ mt: 3 }} onClick={() => setSpecialsOpen(!specialsOpen)}>
+				{!specialsOpen ? 'Any special requests?' : 'Close'}
 			</Button>
-        <Criteria/>    
+			{specialsOpen ? <Criteria /> : null}
 		</Container>
 	)
 }
