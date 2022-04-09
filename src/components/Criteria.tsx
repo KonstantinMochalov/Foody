@@ -24,7 +24,7 @@ export const Criteria = () => {
 		gluten: Boolean,
 		peanut: Boolean,
 		seafood: Boolean,
-		tree: Boolean,
+		treenut: Boolean,
 		soy: Boolean,
 	}
 
@@ -38,7 +38,7 @@ export const Criteria = () => {
 		gluten: false,
 		peanut: false,
 		seafood: false,
-		tree: false,
+		treenut: false,
 		soy: false})
 	const handleRestrictionChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
 		let k: keyof Restrictions
@@ -51,6 +51,7 @@ export const Criteria = () => {
 					//sets restrictions as a result of filter
 					dispatch(setParams({...searchParams, restrictions: searchParams.restrictions.filter(i=>i!==k)}))
 				}
+				console.log(searchParams)
 			}
 		}
 	}
@@ -126,7 +127,7 @@ export const Criteria = () => {
 						<FormControlLabel control={<Checkbox value='gluten' />} label='Gluten' />
 						<FormControlLabel control={<Checkbox value='peanut' />} label='Peanut' />
 						<FormControlLabel control={<Checkbox value='seafood' />} label='Seafood' />
-						<FormControlLabel control={<Checkbox value='tree+nut' />} label='Tree Nut' />
+						<FormControlLabel control={<Checkbox value='treenut' />} label='Tree Nut' />
 						<FormControlLabel control={<Checkbox value='soy' />} label='Soy' />
 					</FormGroup>
 				</AccordionDetails>

@@ -18,8 +18,6 @@ const searchPatamsSlice = createSlice({
 	initialState,
 	reducers: {
 		setParams(state: Params, action: PayloadAction<Params>) {
-			console.log(action.payload);
-			
 			return action.payload
 		},
 	},
