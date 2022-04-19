@@ -4,7 +4,6 @@ interface RecipeList {
 	recipes: [{ id: number; title: string; image: string }]
 	results: [{ id: number; title: string; image: string }]
 }
-interface SearchedRecipeList {}
 
 export const recipeApi = createApi({
 	reducerPath: 'recipeApi',

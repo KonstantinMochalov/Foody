@@ -14,14 +14,13 @@ export const RecipeDetails = ({setSelectedRecipe, selectedRecipe}:Props) => {
     const [getInfo, info] = useLazyGetRecipeDetailsQuery()
     useEffect(() => {
       getInfo(selectedRecipe)
-    }, [])
+    }, )
     
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-        //   height="140"
           image={info.data?.image}
           alt="recipe image"
         />

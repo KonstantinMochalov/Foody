@@ -11,7 +11,7 @@ import {
 	Typography,
 } from '@mui/material'
 import ExpandMore from '@mui/icons-material/ExpandMore'
-import React, { useState } from 'react'
+import React from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { setParams } from '../features/searchParams'
 
@@ -19,44 +19,10 @@ export const Criteria = () => {
 	const dispatch = useAppDispatch()
 	const searchParams = useAppSelector((state) => state.searchParams)
 
-
-	//for checkboxes to work, states key must === chexbox's value
-	interface Restrictions {
-		dairy: Boolean,
-		egg: Boolean,
-		gluten: Boolean,
-		peanut: Boolean,
-		seafood: Boolean,
-		treenut: Boolean,
-		soy: Boolean,
-	}
-
 	const handleMealChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		dispatch(setParams({ ...searchParams, meal: e.target.value }))
 	const handleDietChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		dispatch(setParams({ ...searchParams, diet: e.target.value }))
-	// const [restrictions, setrestRictions] = useState<Restrictions>({
-	// 	dairy: false,
-	// 	egg: false,
-	// 	gluten: false,
-	// 	peanut: false,
-	// 	seafood: false,
-	// 	treenut: false,
-	// 	soy: false})
-	// const handleRestrictionChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
-	// 	let k: keyof Restrictions
-	// 	for ( k in restrictions){
-	// 		if (k == e.target.value){
-	// 			restrictions[k]=!restrictions[k]
-	// 			//sets params as same, exept for restrictions, sets restriction as same, but adds k as a last element
-	// 			if (restrictions[k]) dispatch(setParams({...searchParams, restrictions: [...searchParams.restrictions, k]}))
-	// 			if (!restrictions[k]) {
-	// 				//sets restrictions as a result of filter
-	// 				dispatch(setParams({...searchParams, restrictions: searchParams.restrictions.filter(i=>i!==k)}))
-	// 			}
-	// 		}
-	// 	}
-	// }
 
 	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.checked) {
@@ -80,8 +46,6 @@ export const Criteria = () => {
 				<AccordionDetails sx={{ flexGrow: 1 }}>
 					<FormControl>
 						<RadioGroup
-							// aria-labelledby='demo-controlled-radio-buttons-group'
-							// name='controlled-radio-buttons-group'
 							row
 							defaultValue='any'
 							onChange={handleMealChange}>
@@ -108,8 +72,6 @@ export const Criteria = () => {
 				<AccordionDetails sx={{ flexGrow: 1 }}>
 					<FormControl>
 						<RadioGroup
-							// aria-labelledby='demo-controlled-radio-buttons-group'
-							// name='controlled-radio-buttons-group'
 							row
 							defaultValue='any'
 							onChange={handleDietChange}>

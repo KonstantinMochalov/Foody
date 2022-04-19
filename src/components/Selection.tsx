@@ -38,7 +38,7 @@ export const Selection = () => {
 						<Button
 							variant={searchParams.country === 'thai' ? 'contained' : 'text'}
 							sx={{ padding: 0, backgroundColor: 'primary', aspectRatio: '1/1' }}
-							onClick={() => dispatch(setParams({ ...searchParams, country: 'Thai' }))}>
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'thai' }))}>
 							<Avatar
 								alt='Thai Flag'
 								src={thaiFlag}
