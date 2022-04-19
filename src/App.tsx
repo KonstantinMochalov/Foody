@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 import { TitleBar } from './components/TitleBar'
-import { Alert, Container, Dialog } from '@mui/material'
+import { Container, Dialog } from '@mui/material'
 import { Selection } from './components/Selection'
 import { RecepieImgs } from './components/RecepieImgs'
 import { RecipeDetails } from './components/RecipeDetails'

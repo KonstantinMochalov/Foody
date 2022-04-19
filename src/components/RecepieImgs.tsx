@@ -27,6 +27,7 @@ export const RecepieImgs = ({ setSelectedRecipe }: Props) => {
 		getRecipes(getSearchString(searchParams)).then((getRecipesResult) => {
 			if (getRecipesResult.data?.recipes) setItemData(getRecipesResult.data?.recipes)
 		})
+		// eslint-disable-next-line
 	},[])
 	
 
@@ -73,11 +74,6 @@ export const RecepieImgs = ({ setSelectedRecipe }: Props) => {
 					Choose a country
 				</Alert>
 			</Snackbar>
-			{/* {alertOpen.isOpen ? (
-				<Alert severity='error' sx={{ position: 'absolute', left: 2, bottom: 2 }}>
-					Choose a country
-				</Alert>
-			) : null} */}
 		</>
 	)
 }

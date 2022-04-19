@@ -13,7 +13,6 @@ import { setParams } from '../features/searchParams'
 
 export const Selection = () => {
 	const [specialsOpen, setSpecialsOpen] = useState(false)
-	// const [country, setCountry] = useState("any")
 	const searchParams = useAppSelector((state) => state.searchParams)
 
 	const dispatch = useAppDispatch()
