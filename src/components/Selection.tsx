@@ -27,8 +27,8 @@ export const Selection = () => {
 				alignItems: 'center',
 				mt: 1,
 			}}>
-			<Paper sx={{ mb: 2,  }}>
-				<Typography align='center' variant='h5' sx={{m:0.5, ml:1, mr:1}}>
+			<Paper sx={{ mb: 2 }}>
+				<Typography align='center' variant='h5' sx={{ m: 0.5, ml: 1, mr: 1 }}>
 					Choose a country:
 				</Typography>
 			</Paper>
@@ -36,8 +36,9 @@ export const Selection = () => {
 				<Grid item>
 					<Tooltip title='Thailand'>
 						<Button
-							sx={{ padding: 0 }}
-							onClick={() => dispatch(setParams({ ...searchParams, country: 'thai' }))}>
+							variant={searchParams.country === 'thai' ? 'contained' : 'text'}
+							sx={{ padding: 0, backgroundColor: 'primary', aspectRatio: '1/1' }}
+							onClick={() => dispatch(setParams({ ...searchParams, country: 'Thai' }))}>
 							<Avatar
 								alt='Thai Flag'
 								src={thaiFlag}
@@ -49,7 +50,8 @@ export const Selection = () => {
 				<Grid item>
 					<Tooltip title='Vietnam'>
 						<Button
-							sx={{ padding: 0 }}
+							variant={searchParams.country === 'vietnamese' ? 'contained' : 'text'}
+							sx={{ padding: 0, aspectRatio: '1/1' }}
 							onClick={() => dispatch(setParams({ ...searchParams, country: 'vietnamese' }))}>
 							<Avatar
 								alt='Vietnam Flag'
@@ -62,7 +64,8 @@ export const Selection = () => {
 				<Grid item>
 					<Tooltip title='Mexico'>
 						<Button
-							sx={{ padding: 0 }}
+							variant={searchParams.country === 'mexican' ? 'contained' : 'text'}
+							sx={{ padding: 0, aspectRatio: '1/1' }}
 							onClick={() => dispatch(setParams({ ...searchParams, country: 'mexican' }))}>
 							<Avatar
 								alt='Mexican Flag'
@@ -75,7 +78,8 @@ export const Selection = () => {
 				<Grid item>
 					<Tooltip title='Japan'>
 						<Button
-							sx={{ padding: 0 }}
+							variant={searchParams.country === 'japanese' ? 'contained' : 'text'}
+							sx={{ padding: 0, aspectRatio: '1/1' }}
 							onClick={() => dispatch(setParams({ ...searchParams, country: 'japanese' }))}>
 							<Avatar
 								alt='Japan Flag'
@@ -88,7 +92,8 @@ export const Selection = () => {
 				<Grid item>
 					<Tooltip title='India'>
 						<Button
-							sx={{ padding: 0 }}
+							variant={searchParams.country === 'indian' ? 'contained' : 'text'}
+							sx={{ padding: 0, aspectRatio: '1/1' }}
 							onClick={() => dispatch(setParams({ ...searchParams, country: 'indian' }))}>
 							<Avatar
 								alt='Indian Flag'
@@ -101,7 +106,8 @@ export const Selection = () => {
 				<Grid item>
 					<Tooltip title='China'>
 						<Button
-							sx={{ padding: 0 }}
+							variant={searchParams.country === 'chinese' ? 'contained' : 'text'}
+							sx={{ padding: 0, aspectRatio: '1/1' }}
 							onClick={() => dispatch(setParams({ ...searchParams, country: 'chinese' }))}>
 							<Avatar
 								alt='Chainese Flag'
@@ -114,12 +120,13 @@ export const Selection = () => {
 				<Grid item>
 					<Tooltip title='Greese'>
 						<Button
-							sx={{ padding: 0 }}
+							sx={{ padding: 0, aspectRatio: '1/1' }}
+							variant={searchParams.country === 'greek' ? 'contained' : 'text'}
 							onClick={() => dispatch(setParams({ ...searchParams, country: 'greek' }))}>
 							<Avatar
 								alt='Greek Flag'
 								src={greeceFlag}
-								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 2 }}
+								sx={{ maxwidth: '3rem', maxheight: '3rem', boxShadow: 3 }}
 							/>
 						</Button>
 					</Tooltip>

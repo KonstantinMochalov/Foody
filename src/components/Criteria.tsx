@@ -18,6 +18,9 @@ import { setParams } from '../features/searchParams'
 export const Criteria = () => {
 	const dispatch = useAppDispatch()
 	const searchParams = useAppSelector((state) => state.searchParams)
+
+
+	//for checkboxes to work, states key must === chexbox's value
 	interface Restrictions {
 		dairy: Boolean,
 		egg: Boolean,
@@ -32,28 +35,36 @@ export const Criteria = () => {
 		dispatch(setParams({ ...searchParams, meal: e.target.value }))
 	const handleDietChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		dispatch(setParams({ ...searchParams, diet: e.target.value }))
-	const [restrictions, setrestRictions] = useState<Restrictions>({
-		dairy: false,
-		egg: false,
-		gluten: false,
-		peanut: false,
-		seafood: false,
-		treenut: false,
-		soy: false})
-	const handleRestrictionChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
-		let k: keyof Restrictions
-		for ( k in restrictions){
-			if (k == e.target.value){
-				restrictions[k]=!restrictions[k]
-				//sets params as same, exept for restrictins, sets restriction as same, but adds k as a last element
-				if (restrictions[k]) dispatch(setParams({...searchParams, restrictions: [...searchParams.restrictions, k]}))
-				if (!restrictions[k]) {
-					//sets restrictions as a result of filter
-					dispatch(setParams({...searchParams, restrictions: searchParams.restrictions.filter(i=>i!==k)}))
-				}
-				console.log(searchParams)
-			}
+	// const [restrictions, setrestRictions] = useState<Restrictions>({
+	// 	dairy: false,
+	// 	egg: false,
+	// 	gluten: false,
+	// 	peanut: false,
+	// 	seafood: false,
+	// 	treenut: false,
+	// 	soy: false})
+	// const handleRestrictionChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+	// 	let k: keyof Restrictions
+	// 	for ( k in restrictions){
+	// 		if (k == e.target.value){
+	// 			restrictions[k]=!restrictions[k]
+	// 			//sets params as same, exept for restrictions, sets restriction as same, but adds k as a last element
+	// 			if (restrictions[k]) dispatch(setParams({...searchParams, restrictions: [...searchParams.restrictions, k]}))
+	// 			if (!restrictions[k]) {
+	// 				//sets restrictions as a result of filter
+	// 				dispatch(setParams({...searchParams, restrictions: searchParams.restrictions.filter(i=>i!==k)}))
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.checked) {
+			dispatch(setParams({...searchParams, restrictions: [...searchParams.restrictions, e.target.value]}))
+		} else {
+			dispatch(setParams({...searchParams, restrictions: searchParams.restrictions.filter(i=>i!==e.target.value)}))
 		}
+
 	}
 		
 
@@ -121,13 +132,13 @@ export const Criteria = () => {
 				</AccordionSummary>
 				<AccordionDetails sx={{ flexGrow: 1 }}>
 					<FormGroup
-						onChange={handleRestrictionChange}>
+						onChange={handleCheckboxChange}>
 						<FormControlLabel control={<Checkbox value='dairy' />} label='Dairy' />
 						<FormControlLabel control={<Checkbox value='egg' />} label='Egg' />
 						<FormControlLabel control={<Checkbox value='gluten' />} label='Gluten' />
 						<FormControlLabel control={<Checkbox value='peanut' />} label='Peanut' />
 						<FormControlLabel control={<Checkbox value='seafood' />} label='Seafood' />
-						<FormControlLabel control={<Checkbox value='treenut' />} label='Tree Nut' />
+						<FormControlLabel control={<Checkbox value='tree+nut' />} label='Tree Nut' />
 						<FormControlLabel control={<Checkbox value='soy' />} label='Soy' />
 					</FormGroup>
 				</AccordionDetails>

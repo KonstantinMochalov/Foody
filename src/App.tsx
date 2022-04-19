@@ -1,30 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 import { TitleBar } from './components/TitleBar'
-import { Button, Container, Divider } from '@mui/material'
+import { Alert, Button, Collapse, Container, Dialog, Divider, Modal } from '@mui/material'
 import { Selection } from './components/Selection'
 import { RecepieImgs } from './components/RecepieImgs'
-import { getRecipes } from './api/getRequests'
 import { useAppSelector } from './app/hooks'
-
+import { RecipeDetails } from './components/RecipeDetails'
 const App: React.FC = () => {
-	const searchParams= useAppSelector((state)=>state.searchParams)
-	const search = () =>{
-		console.log(getRecipes(searchParams))
-	}
-	useEffect(() => {
-		search()
-	}, [])
-	
+	const searchParams = useAppSelector((state) => state.searchParams)
+	const [alertOpen, setAlertOpen] = useState(false)
+	const [selectedRecipe, setSelectedRecipe] = useState<number>(0)
+
 	return (
-	<>
+		<>
 			<TitleBar />
-			<Container sx={{ mt: 0.5,  display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+			<Container
+				sx={{
+					mt: 0.5,
+					display: 'flex',
+					justifyContent: 'center',
+					flexDirection: 'column',
+					alignItems: 'center',
+				}}>
 				<Selection />
-				<Button variant='contained' sx={{maxWidth:"10rem", mt: 2}} onClick={search}>Search</Button>
-				<RecepieImgs/>
+				<RecepieImgs setSelectedRecipe={setSelectedRecipe}/>
+				<Dialog open={Boolean(selectedRecipe)} onClose={()=>setSelectedRecipe(0)}
+						 >
+					<>
+					<RecipeDetails setSelectedRecipe={setSelectedRecipe} selectedRecipe={selectedRecipe}/>
+					</>
+				</Dialog>
 			</Container>
-			
+			{alertOpen?<Alert  severity='error' sx={{position:"absolute", left: 2, bottom: 2}}>Choose a country</Alert>:null}
 		</>
 	)
 }
